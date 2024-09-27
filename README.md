@@ -23,4 +23,7 @@ https://www.youtube.com/watch?v=tfZk5WP9zik
 ходит, т.е. не пытается выбирать строки или столбцы с целью победить в игре.
 
 # TODO
-- [ ] Пофиксить баг, что можно выбрать ход с полностью пустым рядом/столбцом
+- Nothing!
+
+# Допоплнительные сведения
+- Используемая документация: Phoenix (https://docs.wxpython.org/DocstringsGuidelines.html)
