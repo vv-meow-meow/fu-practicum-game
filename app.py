@@ -33,7 +33,7 @@ def place_random_buttons():
         array[random_row][random_col] = '●'
 
 
-def _remove_row(selected_row):
+def _remove_row(selected_row: str) -> None:
     """
     Очищает ряд с игрового поля (массива).
     :param selected_row: – выбранный ряд
@@ -45,7 +45,7 @@ def _remove_row(selected_row):
         array[row_index][element_index] = "○"
 
 
-def _remove_column(selected_column):
+def _remove_column(selected_column: int) -> None:
     """
     Очищает столбец с игрового поля (массива).
     :param selected_column: – выбранный столбец
@@ -62,6 +62,33 @@ def select_move():
     make_move(move)
 
 
+def check_row(selected_row: str) -> bool:
+    """
+    Проверяет, есть ли в ряду пуговицы
+    :param selected_row: выбранный ряд (a-h)
+    :return: True or False
+    """
+    row_index = alphabet.find(selected_row)
+    logger.debug(row_index)
+    if "●" in array[row_index]:
+        return True
+    return False
+
+
+def check_column(selected_column: int) -> bool:
+    """
+    Проверяет, есть ли в столбце пуговицы
+    :param selected_column: выбранный столбец (1-8)
+    :return: True or False
+    """
+    column_index = selected_column - 1
+    logger.debug(column_index)
+    for row_index in range(8):
+        if array[row_index][column_index] == "●":
+            return True
+    return False
+
+
 def make_move(move):
     """
     Определяет выбранный ход пользователя и удаляет пуговицы с игрового поля.
@@ -73,13 +100,13 @@ def make_move(move):
         select_move()
     try:
         move = int(move)
-        if move < 1 or move > 8:
+        if (1 <= move <= 8) and check_column(move):
+            _remove_column(move)
+        else:
             logger.debug("Invalid move")
             select_move()
-        else:
-            _remove_column(move)
     except ValueError:
-        if move in alphabet:
+        if (move in alphabet) and (check_row(move)):
             _remove_row(move)
         else:
             logger.debug("Invalid move")
